@@ -772,21 +772,6 @@ aside {
 .p-wishlist:hover {
   color: #5692f1;
 }
-.cart-btn {
-  background: #5692f1;
-  color: #fff;
-  height: 40px;
-  width: 200px;
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 5px;
-  margin-top: 20px;
-}
-.cart-btn:hover {
-  background: #497ed3;
-}
 .related-products {
   padding: 15px;
   margin-top: 75px;
@@ -853,7 +838,7 @@ aside {
   text-transform: uppercase;
 }
 .variations input {
-  width: 35px;
+  width: 45px;
   height: 35px;
   margin: 5px;
   background: transparent;
@@ -869,7 +854,31 @@ aside {
 .variations input:hover {
   background: #dadada;
 }
-
+.page-404 {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  color: #fafafa;
+  background: #252a33;
+  font-size: calc(18px + (32 - 18) * ((100vw - 300px) / 1300));
+}
+.cart-btn {
+  background: #5692f1;
+  color: #fff;
+  height: 40px;
+  width: 200px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+.cart-btn:hover {
+  background: #497ed3;
+}
 @media screen and (max-width: 768px) {
   nav {
     padding: 10px 15px;

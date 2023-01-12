@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { useRouter } from 'next/router';
 import { Layout } from '../../components/layout/WebsiteLayout';
 import Grid from '@mui/system/Unstable_Grid/Grid';
@@ -8,7 +9,7 @@ import AddIcon from '@mui/icons-material/Add';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ProductCard from '../../components/ProductCard';
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
@@ -18,15 +19,21 @@ const ProductScreen = (props) => {
   const { products } = props;
   const [qty, setQty] = useState(1);
   const [price, setPrice] = useState();
+  const [product, setProduct] = useState();
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState('');
   const router = useRouter();
   const productId = router.query.id;
 
-  const product = products.find(
-    (item) => item.productId === parseInt(productId)
-  );
+  useEffect(() => {
+    const item = products.find(
+      (item) => item.productId === parseInt(productId)
+    );
+    setProduct(item);
+  }, []);
 
   if (!product) {
-    // router.push('/404');
+    return <div className="page-404">Product Not Found</div>;
   }
 
   const prices = formatPrice(
@@ -37,9 +44,6 @@ const ProductScreen = (props) => {
 
   const fd = product.fixedSenderDenominations;
   const unfixedAmount = [5, 10, 15, 25, 50, 100];
-
-  const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState('');
 
   const handleClick = (name, action) => {
     setOpen(true);
@@ -88,7 +92,7 @@ const ProductScreen = (props) => {
                 <h1>{product.productName}</h1>
                 <div className="p-rating">
                   <Rating
-                    defaultValue={randomRating ?? 1}
+                    defaultValue={randomRating}
                     precision={0.5}
                     size="small"
                     readOnly

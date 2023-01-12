@@ -75,7 +75,7 @@ const ProductCard = ({ product }) => {
           <div className="product-name">{productName}</div>
           <div className="rating">
             <Rating
-              defaultValue={randomRating ?? 1}
+              defaultValue={randomRating}
               precision={0.5}
               size="small"
               readOnly
