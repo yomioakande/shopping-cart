@@ -8,7 +8,7 @@ const EmptyCart = () => {
       <ShoppingCartOutlinedIcon />
       <h3>Your Cart is empty!</h3>
       <p>Start shopping to add products to your cart. </p>
-      <Link href="/products">
+      <Link href="/products" passHref>
         <Button className="empty-cart-btn">Start Shopping</Button>
       </Link>
     </div>

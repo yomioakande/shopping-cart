@@ -56,7 +56,7 @@ const Products = (props) => {
             </Grid>
             <Grid md={9}>
               <div className="mainbar">
-                <Grid container xs={12} spacing={3}>
+                <Grid container xs={12} spacing={{ xs: 1, md: 3 }}>
                   <Grid md={12} xs={12}>
                     <div className="mainbar-header">
                       <div className="sort">

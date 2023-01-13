@@ -10,7 +10,10 @@ const PageHeader = ({ title }) => {
         {title == 'My Cart' && (
           <ul className="breadcrumbs">
             <li>
-              <Link href="/products">Products</Link> <NavigateNextIcon />
+              <Link href="/products" passHref>
+                Products
+              </Link>
+              <NavigateNextIcon />
             </li>
             <li style={{ color: '#252a33' }}>My Cart</li>
           </ul>

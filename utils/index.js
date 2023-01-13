@@ -12,8 +12,7 @@ const fetchProducts = async () => {
     console.log(error);
     return {
       props: {
-        products: [],
-        error
+        products: []
       }
     };
   }

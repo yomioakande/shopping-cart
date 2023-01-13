@@ -23,7 +23,7 @@ const ProductCard = ({ product }) => {
   return (
     <div className="product-container">
       <div className="product-img">
-        <Link href={`/products/${productId}`}>
+        <Link href={`/products/${productId}`} passHref>
           <img src={img} alt={productName} loading="lazy" />
         </Link>
         <ul className="product-img-overlay">
@@ -47,7 +47,7 @@ const ProductCard = ({ product }) => {
           </Tooltip>
         </ul>
       </div>
-      <Link href={`/products/${productId}`}>
+      <Link href={`/products/${productId}`} passHref>
         <div className="product-info">
           <div className="product-name">{productName}</div>
           <div className="rating">
