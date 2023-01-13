@@ -18,7 +18,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 
 const ProductScreen = (props) => {
-  const { products } = props;
+  const [products, setProducts] = useState(props.products);
   const { state, dispatch } = useContext(Store);
   const [qty, setQty] = useState(1);
   const [price, setPrice] = useState();

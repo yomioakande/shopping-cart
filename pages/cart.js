@@ -17,7 +17,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import toast, { Toaster } from 'react-hot-toast';
 import dynamic from 'next/dynamic';
 
-const index = (props) => {
+const CartPage = (props) => {
   const { products } = props;
   const { state, dispatch } = useContext(Store);
   const [open, setOpen] = useState(false);
@@ -150,4 +150,4 @@ export async function getServerSideProps() {
   }
 }
 
-export default dynamic(() => Promise.resolve(index), { ssr: false });
+export default dynamic(() => Promise.resolve(CartPage), { ssr: false });

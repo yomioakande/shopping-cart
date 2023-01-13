@@ -19,8 +19,6 @@ const Header = () => {
 
   const { cart } = state;
 
-  console.log(cart);
-
   return (
     <header>
       <nav className={mobileNavBar ? 'open' : ''}>
