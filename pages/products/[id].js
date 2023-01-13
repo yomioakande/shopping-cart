@@ -103,12 +103,12 @@ const ProductScreen = (props) => {
         </ul>
         <div className="cart-page">
           <Grid container md={8} mdOffset={2} spacing={3}>
-            <Grid md={5}>
+            <Grid md={5} xs={12}>
               <div className="product-main-img">
                 <img src={product.img} alt={product.productName} />
               </div>
             </Grid>
-            <Grid md={7}>
+            <Grid md={7} xs={12}>
               <div className="product-details">
                 <h1>{product.productName}</h1>
                 <div className="p-rating">
@@ -190,6 +190,7 @@ const ProductScreen = (props) => {
           </Grid>
           <Grid
             container
+            xs={12}
             md={8}
             mdOffset={2}
             spacing={3}
@@ -197,7 +198,7 @@ const ProductScreen = (props) => {
           >
             <h5>Related Products</h5>
             {products.slice(50, 54).map((product, index) => (
-              <Grid md={3} key={index}>
+              <Grid xs={12} md={3} key={index}>
                 <ProductCard product={product} />
               </Grid>
             ))}

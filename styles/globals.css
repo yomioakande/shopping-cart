@@ -346,15 +346,15 @@ footer a:hover {
   margin-bottom: 15px;
 }
 .empty-cart-btn {
-  background: #5692f1;
-  border: 1px solid #5692f1;
-  color: #fafafa;
-  margin: 15px 0;
-  padding: 10px 30px;
+  background: #5692f1 !important;
+  border: 1px solid #5692f1 !important;
+  color: #fafafa !important;
+  margin: 15px 0 !important;
+  padding: 10px 30px !important;
 }
 .empty-cart-btn:hover {
-  background: transparent;
-  color: #5692f1;
+  background: transparent !important;
+  color: #5692f1 !important;
 }
 .cart-page {
   padding: 10px 15px;
@@ -485,7 +485,7 @@ footer a:hover {
 .hand-picked {
   background: #fff;
   padding: 15px;
-  margin-top: 55px;
+  margin-top: 55px !important;
 }
 .hand-picked .title {
   position: relative;
@@ -778,23 +778,23 @@ aside {
   color: #5692f1;
 }
 .cart-btn {
-  background: #5692f1;
-  color: #fff;
+  background: #5692f1 !important;
+  color: #fff !important;
   height: 40px;
   width: 200px;
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 5px;
-  margin-top: 20px;
+  padding: 10px 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 5px !important;
+  margin-top: 20px !important;
 }
 .cart-btn:hover {
-  background: #497ed3;
+  background: #497ed3 !important;
 }
 .related-products {
   padding: 15px;
-  margin-top: 75px;
+  margin-top: 75px !important;
 }
 .related-products h5 {
   width: 100%;
@@ -858,7 +858,7 @@ aside {
   text-transform: uppercase;
 }
 .variations input {
-  width: 45px;
+  width: 50px;
   height: 40px;
   margin: 5px;
   background: transparent;
@@ -936,7 +936,7 @@ aside {
     bottom: 0;
     left: 0;
     width: 100vw;
-    height: 40px;
+    height: 50px;
     background: #30323a;
     color: #fff;
     padding: 0;
