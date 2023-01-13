@@ -64,9 +64,9 @@ const Header = () => {
           <Link href="/" className="nav-cart">
             <span>
               <ShoppingCartOutlinedIcon /> <p>Cart</p>
-              {cart.cartItems.length > 0 && (
+              {cart?.cartItems.length > 0 && (
                 <span className="cart-count">
-                  {cart.cartItems.reduce((a, c) => a + c.qty, 0)}
+                  {cart?.cartItems.reduce((a, c) => a + c.qty, 0)}
                 </span>
               )}
             </span>

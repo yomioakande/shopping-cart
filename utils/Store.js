@@ -3,7 +3,7 @@ import { createContext, useReducer, useEffect, useState } from 'react';
 export const Store = createContext();
 
 function initialState() {
-  let data = {};
+  let data = { cartItems: [] };
   if (typeof window !== 'undefined') {
     data = JSON.parse(window.localStorage.getItem('CART_ITEM'));
   }
