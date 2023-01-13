@@ -1,10 +1,12 @@
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { Store } from '../../utils/Store';
 
 const Header = () => {
+  const { state, dispatch } = useContext(Store);
   const [navAccountDropdown, setNavAccountDropdown] = useState(false);
   const [mobileNavBar, setMobileNavBar] = useState(false);
 
@@ -14,6 +16,10 @@ const Header = () => {
   const toggleMobileNavBar = () => {
     setMobileNavBar(!mobileNavBar);
   };
+
+  const { cart } = state;
+
+  console.log(cart);
 
   return (
     <header>
@@ -60,7 +66,11 @@ const Header = () => {
           <Link href="/cart" className="nav-cart">
             <span>
               <ShoppingCartOutlinedIcon /> <p>Cart</p>
-              <span className="cart-count">6</span>
+              {cart.cartItems.length > 0 && (
+                <span className="cart-count">
+                  {cart.cartItems.reduce((a, c) => a + c.qty, 0)}
+                </span>
+              )}
             </span>
           </Link>
         </div>

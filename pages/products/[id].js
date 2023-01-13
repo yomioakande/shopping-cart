@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 import { Layout } from '../../components/layout/WebsiteLayout';
 import Grid from '@mui/system/Unstable_Grid/Grid';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
@@ -8,17 +9,22 @@ import AddIcon from '@mui/icons-material/Add';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ProductCard from '../../components/ProductCard';
-import { Fragment, useState, useEffect } from 'react';
-import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+import { useState, useEffect, useContext } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { formatPrice, randomRating, randomReviews } from '../../utils';
+import { Store } from '../../utils/Store';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
 
 const ProductScreen = (props) => {
   const { products } = props;
+  const { state, dispatch } = useContext(Store);
   const [qty, setQty] = useState(1);
   const [price, setPrice] = useState();
   const [product, setProduct] = useState();
+  const [ratings, setRatings] = useState(3);
+  const [reviewCount, setReviewCount] = useState(123);
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
   const router = useRouter();
@@ -29,6 +35,11 @@ const ProductScreen = (props) => {
       (item) => item.productId === parseInt(productId)
     );
     setProduct(item);
+  }, [productId]);
+
+  useEffect(() => {
+    setRatings(randomRating);
+    setReviewCount(randomReviews);
   }, []);
 
   if (!product) {
@@ -44,31 +55,37 @@ const ProductScreen = (props) => {
   const fd = product.fixedSenderDenominations;
   const unfixedAmount = [5, 10, 15, 25, 50, 100];
 
-  const handleClick = (name, action) => {
+  const successToast = (message) => toast.success(message);
+  const errorToast = (message) => toast.error(message);
+
+  const handleClickOpen = (msg) => {
     setOpen(true);
-    setMessage(`"${name}" Added to ${action}`);
+    setMessage(msg);
   };
 
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
+  const handleClose = () => {
     setOpen(false);
   };
+  const handleRedirect = () => {
+    router.push('/cart');
+  };
 
-  const action = (
-    <Fragment>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}
-      >
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </Fragment>
-  );
+  const addToCartHandler = () => {
+    const existItem = state.cart.cartItems.find(
+      (item) => item.productId === productId
+    );
+    const quantity = existItem ? existItem.qty + parseInt(qty) : qty;
+    if (!price) {
+      errorToast('Please select a price for the gift card.');
+    } else {
+      dispatch({
+        type: 'CART_ADD_ITEM',
+        payload: { productId, price, qty: quantity }
+      });
+      handleClickOpen(`${product.productName} was successfully added to cart`);
+      successToast(`${product.productName} was successfully added to cart`);
+    }
+  };
 
   return (
     <Layout title="Products">
@@ -91,12 +108,12 @@ const ProductScreen = (props) => {
                 <h1>{product.productName}</h1>
                 <div className="p-rating">
                   <Rating
-                    defaultValue={randomRating}
+                    defaultValue={ratings}
                     precision={0.5}
                     size="small"
                     readOnly
                   />
-                  <p>({randomReviews()} ratings)</p>
+                  <p>({reviewCount} ratings)</p>
                 </div>
                 <div className="p-amount">
                   {prices.D2 ? (
@@ -148,12 +165,16 @@ const ProductScreen = (props) => {
                 </div>
                 <div
                   className="p-wishlist"
-                  onClick={() => handleClick(product.productName, 'Wishlist')}
+                  onClick={() =>
+                    successToast(
+                      `${product.productName} Successfully added to Wishlist`
+                    )
+                  }
                 >
                   <FavoriteBorderIcon /> Add to Wishlist
                 </div>
                 <p>{product.redeemInstruction.verbose}</p>
-                <Button className="cart-btn">
+                <Button className="cart-btn" onClick={addToCartHandler}>
                   <AddShoppingCartIcon />
                   Add to Cart
                 </Button>
@@ -168,7 +189,7 @@ const ProductScreen = (props) => {
             className="related-products"
           >
             <h5>Related Products</h5>
-            {products.slice(0, 4).map((product) => (
+            {products.slice(50, 54).map((product) => (
               <Grid md={3}>
                 <ProductCard product={product} />
               </Grid>
@@ -176,14 +197,49 @@ const ProductScreen = (props) => {
           </Grid>
         </div>
       </div>
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={open}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        message={message}
-        action={action}
+      <Toaster
+        toastOptions={{
+          success: {
+            duration: 4000,
+            style: {
+              background: '#4bb543',
+              color: '#fff'
+            },
+            iconTheme: {
+              primary: '#fff',
+              secondary: '#4bb543'
+            },
+            icon: '👏'
+          },
+          error: {
+            duration: 4000,
+            style: {
+              background: '#dd3939',
+              color: '#fff'
+            },
+            iconTheme: {
+              primary: '#fff',
+              secondary: '#dd3939'
+            }
+          }
+        }}
       />
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{message}</DialogTitle>
+        <DialogActions>
+          <Button variant="outlined" onClick={handleClose}>
+            Continue Shopping
+          </Button>
+          <Button variant="contained" onClick={handleRedirect} autoFocus>
+            Go to Cart
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Layout>
   );
 };
@@ -209,4 +265,4 @@ export async function getServerSideProps() {
   }
 }
 
-export default ProductScreen;
+export default dynamic(() => Promise.resolve(ProductScreen), { ssr: false });

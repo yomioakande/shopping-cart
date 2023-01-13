@@ -58,4 +58,10 @@ const randomReviews = () => {
   return Math.floor(Math.random() * 99999);
 };
 
-export { sortOptions, formatPrice, randomRating, randomReviews };
+export {
+  currencyFormatter,
+  sortOptions,
+  formatPrice,
+  randomRating,
+  randomReviews
+};

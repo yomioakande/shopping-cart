@@ -13,14 +13,4 @@ const nextConfig = {
   }
 };
 
-const redirects = async () => {
-  return [
-    {
-      source: '/',
-      destination: '/products',
-      permanent: true
-    }
-  ];
-};
-
-module.exports = { nextConfig, redirects };
+module.exports = nextConfig;

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { Button } from '@mui/material';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -5,7 +6,12 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 
-const CartSummary = () => {
+const CartSummary = ({ subTotal, productQty }) => {
+  const router = useRouter();
+  const USDollar = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
+  });
   return (
     <div className="cart-summary">
       <h5> Cart Summary </h5>
@@ -14,16 +20,18 @@ const CartSummary = () => {
           <TableBody>
             <TableRow>
               <TableCell>Products Qty</TableCell>
-              <TableCell>10</TableCell>
+              <TableCell>{productQty}</TableCell>
             </TableRow>
             <TableRow>
               <TableCell>Subtotal</TableCell>
-              <TableCell>$9.99</TableCell>
+              <TableCell>{USDollar.format(subTotal)}</TableCell>
             </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
-      <Button className="checkout-btn">Checkout</Button>
+      <Button onClick={() => router.push('/checkout')} className="checkout-btn">
+        Checkout
+      </Button>
     </div>
   );
 };

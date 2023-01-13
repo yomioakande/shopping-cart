@@ -1,4 +1,5 @@
 import ReactPaginate from 'react-paginate';
+import dynamic from 'next/dynamic';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Layout } from '../../components/layout/WebsiteLayout';
 import PageHeader from '../../components/PageHeader';
@@ -8,7 +9,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import { Listbox } from '@headlessui/react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { sortOptions } from '../../utils';
 
 const index = (props) => {
@@ -41,10 +42,6 @@ const index = (props) => {
     brands.push(product.brand.brandName);
   });
 
-  // useEffect(() => {
-  //   window.localStorage.setItem('PRODUCTS_LIST', JSON.stringify(products));
-  // }, [products]);
-
   return (
     <Layout title="Products">
       <div className="page-content">
@@ -59,7 +56,7 @@ const index = (props) => {
             </Grid>
             <Grid md={9}>
               <div className="mainbar">
-                <Grid container spacing={1}>
+                <Grid container xs={12} spacing={3}>
                   <Grid md={12} xs={12}>
                     <div className="mainbar-header">
                       <div className="sort">
@@ -94,7 +91,7 @@ const index = (props) => {
                     </div>
                   </Grid>
                   {currentItems.map((product) => (
-                    <Grid md={3} xs={12}>
+                    <Grid xs={12} md={3}>
                       <ProductCard product={product} />
                     </Grid>
                   ))}
@@ -142,4 +139,4 @@ export async function getServerSideProps() {
   }
 }
 
-export default index;
+export default dynamic(() => Promise.resolve(index), { ssr: false });

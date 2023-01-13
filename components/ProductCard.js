@@ -1,14 +1,10 @@
 import Rating from '@mui/material/Rating';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import Link from 'next/link';
 import Tooltip from '@mui/material/Tooltip';
 import { formatPrice, randomRating, randomReviews } from '../utils';
-import Snackbar from '@mui/material/Snackbar';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import { Fragment, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 
 const ProductCard = ({ product }) => {
   const {
@@ -22,34 +18,7 @@ const ProductCard = ({ product }) => {
 
   const price = formatPrice(minD, maxD, fd);
 
-  const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState('');
-
-  const handleClick = (name, action) => {
-    setOpen(true);
-    setMessage(`"${name}" Added to ${action}`);
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };
-
-  const action = (
-    <Fragment>
-      <IconButton
-        size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}
-      >
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </Fragment>
-  );
+  const successToast = (message) => toast.success(message);
 
   return (
     <div className="product-container">
@@ -59,12 +28,20 @@ const ProductCard = ({ product }) => {
         </Link>
         <ul className="product-img-overlay">
           <Tooltip title="Wishlist">
-            <li onClick={() => handleClick(productName, 'Wishlist')}>
+            <li
+              onClick={() =>
+                successToast(`${productName} Successfully added to Wishlist`)
+              }
+            >
               <FavoriteBorderIcon />
             </li>
           </Tooltip>
           <Tooltip title="Compare">
-            <li onClick={() => handleClick(productName, 'Compare')}>
+            <li
+              onClick={() =>
+                successToast(`${productName} Successfully added to Compare`)
+              }
+            >
               <CompareArrowsIcon />
             </li>
           </Tooltip>
@@ -99,13 +76,32 @@ const ProductCard = ({ product }) => {
         </div>
       </Link>
 
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={open}
-        autoHideDuration={12000}
-        onClose={handleClose}
-        message={message}
-        action={action}
+      <Toaster
+        toastOptions={{
+          success: {
+            duration: 4000,
+            style: {
+              background: '#4bb543',
+              color: '#fff'
+            },
+            iconTheme: {
+              primary: '#fff',
+              secondary: '#4bb543'
+            },
+            icon: '👏'
+          },
+          error: {
+            duration: 4000,
+            style: {
+              background: '#dd3939',
+              color: '#fff'
+            },
+            iconTheme: {
+              primary: '#fff',
+              secondary: '#dd3939'
+            }
+          }
+        }}
       />
     </div>
   );

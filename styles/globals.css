@@ -179,6 +179,9 @@ nav {
   justify-content: center;
   border-radius: 50%;
 }
+.cart-count:hover {
+  color: #fafafa !important;
+}
 
 .menu-icon {
   display: none;
@@ -318,7 +321,7 @@ footer a:hover {
   color: #252a33;
   margin-bottom: 5px;
   text-transform: capitalize;
-  font-size: 52px;
+  font-size: calc(28px + (52 - 28) * ((100vw - 300px) / 1300));
 }
 .breadcrumbs,
 .breadcrumbs li {
@@ -360,6 +363,7 @@ footer a:hover {
   display: flex;
   align-items: center;
   color: #dd3939;
+  cursor: pointer;
 }
 .cart-item-box {
   position: relative;
@@ -376,6 +380,7 @@ footer a:hover {
   position: relative !important;
 }
 .item-info {
+  width: 100%;
   position: relative;
   padding-left: 10px;
 }
@@ -510,7 +515,6 @@ footer a:hover {
 .product-img {
   position: relative;
   width: auto;
-  height: 160px;
   overflow: hidden;
 }
 .product-img-overlay {
@@ -558,7 +562,7 @@ footer a:hover {
 }
 .product-price {
   color: #30323a;
-  font-size: 1.2rem;
+  font-size: calc(12px + (18 - 12) * ((100vw - 300px) / 1300));
   line-height: 0.75;
   margin: 10px 0;
 }
@@ -772,6 +776,21 @@ aside {
 .p-wishlist:hover {
   color: #5692f1;
 }
+.cart-btn {
+  background: #5692f1;
+  color: #fff;
+  height: 40px;
+  width: 200px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+.cart-btn:hover {
+  background: #497ed3;
+}
 .related-products {
   padding: 15px;
   margin-top: 75px;
@@ -839,7 +858,7 @@ aside {
 }
 .variations input {
   width: 45px;
-  height: 35px;
+  height: 40px;
   margin: 5px;
   background: transparent;
   border: 1px solid #b2b2b2;
@@ -863,21 +882,6 @@ aside {
   color: #fafafa;
   background: #252a33;
   font-size: calc(18px + (32 - 18) * ((100vw - 300px) / 1300));
-}
-.cart-btn {
-  background: #5692f1;
-  color: #fff;
-  height: 40px;
-  width: 200px;
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 5px;
-  margin-top: 20px;
-}
-.cart-btn:hover {
-  background: #497ed3;
 }
 @media screen and (max-width: 768px) {
   nav {
@@ -996,5 +1000,8 @@ aside {
   .product-img {
     width: 100%;
     height: auto;
+  }
+  .page-header {
+    padding: 15px;
   }
 }
