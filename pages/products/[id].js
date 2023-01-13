@@ -113,7 +113,7 @@ const ProductScreen = (props) => {
                 <h1>{product.productName}</h1>
                 <div className="p-rating">
                   <Rating
-                    defaultValue={ratings}
+                    value={Number(ratings)}
                     precision={0.5}
                     size="small"
                     readOnly

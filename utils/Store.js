@@ -1,4 +1,4 @@
-import { createContext, useReducer, useEffect, useState } from 'react';
+import { createContext, useReducer } from 'react';
 
 export const Store = createContext();
 
@@ -9,7 +9,7 @@ function initialState() {
   }
 
   const State = {
-    cart: data
+    cart: data ? data : { cartItems: [] }
   };
   return State;
 }
@@ -18,52 +18,52 @@ function reducer(state, action) {
   switch (action.type) {
     case 'CART_ADD_ITEM': {
       const newItem = action.payload;
-      const existItem = state.cart.cartItems.find(
+      const existItem = state?.cart.cartItems.find(
         (item) => item.productId === parseInt(newItem.productId)
       );
       const cartItems = existItem
-        ? state.cart.cartItems.map((item) =>
+        ? state?.cart.cartItems.map((item) =>
             item.productName === existItem.productName ? newItem : item
           )
-        : [...state.cart.cartItems, newItem];
+        : [...state?.cart.cartItems, newItem];
       window.localStorage.setItem(
         'CART_ITEM',
-        JSON.stringify({ ...state.cart, cartItems })
+        JSON.stringify({ ...state?.cart, cartItems })
       );
-      return { ...state, cart: { ...state.cart, cartItems } };
+      return { ...state, cart: { ...state?.cart, cartItems } };
     }
 
     case 'UPDATE_ITEM': {
       const newItem = action.payload;
-      const index = state.cart.cartItems.findIndex(
+      const index = state?.cart.cartItems.findIndex(
         (x) => x.productId == newItem.productId
       );
-      let cartItems = [...state.cart.cartItems];
+      let cartItems = [...state?.cart.cartItems];
       cartItems[index] = newItem;
       window.localStorage.setItem(
         'CART_ITEM',
-        JSON.stringify({ ...state.cart, cartItems })
+        JSON.stringify({ ...state?.cart, cartItems })
       );
-      return { ...state, cart: { ...state.cart, cartItems } };
+      return { ...state, cart: { ...state?.cart, cartItems } };
     }
 
     case 'CART_DELETE_ITEM': {
-      const cartItems = state.cart.cartItems.filter(
+      const cartItems = state?.cart.cartItems.filter(
         (item) => item.productId !== action.payload.productId
       );
       window.localStorage.setItem(
         'CART_ITEM',
-        JSON.stringify({ ...state.cart, cartItems })
+        JSON.stringify({ ...state?.cart, cartItems })
       );
-      return { ...state, cart: { ...state.cart, cartItems } };
+      return { ...state, cart: { ...state?.cart, cartItems } };
     }
 
     case 'EMPTY_CART': {
       window.localStorage.setItem(
         'CART_ITEM',
-        JSON.stringify({ ...state.cart, cartItems: [] })
+        JSON.stringify({ ...state?.cart, cartItems: [] })
       );
-      return { ...state, cart: { ...state.cart, cartItems: [] } };
+      return { ...state, cart: { ...state?.cart, cartItems: [] } };
     }
 
     default:
