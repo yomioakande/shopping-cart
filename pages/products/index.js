@@ -12,7 +12,7 @@ import { Listbox } from '@headlessui/react';
 import { useState } from 'react';
 import { sortOptions } from '../../utils';
 
-const index = (props) => {
+const Products = (props) => {
   const { products } = props;
   const [selectedSort, setSelectedSort] = useState(sortOptions[0]);
   const [sortShadow, setSortShadow] = useState(false);
@@ -90,8 +90,8 @@ const index = (props) => {
                       </div>
                     </div>
                   </Grid>
-                  {currentItems.map((product) => (
-                    <Grid xs={12} md={3}>
+                  {currentItems.map((product, index) => (
+                    <Grid xs={12} md={3} key={index}>
                       <ProductCard product={product} />
                     </Grid>
                   ))}
@@ -139,4 +139,4 @@ export async function getServerSideProps() {
   }
 }
 
-export default dynamic(() => Promise.resolve(index), { ssr: false });
+export default dynamic(() => Promise.resolve(Products), { ssr: false });

@@ -14,10 +14,9 @@ import DialogTitle from '@mui/material/DialogTitle';
 import toast, { Toaster } from 'react-hot-toast';
 
 const CartItem = ({ products, item }) => {
-  const { state, dispatch } = useContext(Store);
+  const { dispatch } = useContext(Store);
   const [open, setOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState({});
-  const [itemToUpdate, setItemToUpdate] = useState({});
 
   const successToast = (message) => toast.success(message);
 
@@ -41,29 +40,27 @@ const CartItem = ({ products, item }) => {
     setItemToDelete(itemToDelete);
   };
 
-  const incrementQty = (itemToUpdate) => {
-    setItemToUpdate(itemToUpdate);
-    const quantity = itemToUpdate.qty + 1;
+  const incrementQty = (item) => {
+    const quantity = item.qty + 1;
     dispatch({
       type: 'UPDATE_ITEM',
       payload: {
-        productId: itemToUpdate.productId,
-        price: itemToUpdate.price,
+        productId: item.productId,
+        price: item.price,
         qty: quantity
       }
     });
     successToast(`Item qty successfully updated`);
   };
 
-  const decrementQty = (itemToUpdate) => {
-    setItemToUpdate(itemToUpdate);
-    if (itemToUpdate.qty > 1) {
-      const quantity = itemToUpdate.qty - 1;
+  const decrementQty = (item) => {
+    if (item.qty > 1) {
+      const quantity = item.qty - 1;
       dispatch({
         type: 'UPDATE_ITEM',
         payload: {
-          productId: itemToUpdate.productId,
-          price: itemToUpdate.price,
+          productId: item.productId,
+          price: item.price,
           qty: quantity
         }
       });
@@ -72,8 +69,8 @@ const CartItem = ({ products, item }) => {
       dispatch({
         type: 'CART_DELETE_ITEM',
         payload: {
-          productId: itemToUpdate.productId,
-          price: itemToUpdate.price,
+          productId: item.productId,
+          price: item.price,
           qty: 1
         }
       });

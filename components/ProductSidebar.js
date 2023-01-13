@@ -65,8 +65,9 @@ const ProductSidebar = ({ filter, brands }) => {
               onChange={(e, val) => setBrand(val)}
               name="radio-buttons-group"
             >
-              {brands.map((brand) => (
+              {brands.map((brand, index) => (
                 <FormControlLabel
+                  key={index}
                   value={brand}
                   control={<Radio />}
                   label={brand}

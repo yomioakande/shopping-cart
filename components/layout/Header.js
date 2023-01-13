@@ -6,7 +6,7 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { Store } from '../../utils/Store';
 
 const Header = () => {
-  const { state, dispatch } = useContext(Store);
+  const { state } = useContext(Store);
   const [navAccountDropdown, setNavAccountDropdown] = useState(false);
   const [mobileNavBar, setMobileNavBar] = useState(false);
 

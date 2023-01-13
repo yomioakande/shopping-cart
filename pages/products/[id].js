@@ -18,7 +18,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 
 const ProductScreen = (props) => {
-  const [products, setProducts] = useState(props.products);
+  const [products] = useState(props.products);
   const { state, dispatch } = useContext(Store);
   const [qty, setQty] = useState(1);
   const [price, setPrice] = useState();
@@ -132,19 +132,21 @@ const ProductScreen = (props) => {
                 <div className="variations">
                   <label>Price Variations:</label>
                   {fd
-                    ? fd.map((val) => (
+                    ? fd.map((val, index) => (
                         <input
                           className={val === price && 'active'}
                           type="button"
+                          key={index}
                           value={`$${val}`}
                           readOnly
                           onClick={() => setPrice(val)}
                         />
                       ))
-                    : unfixedAmount.map((val) => (
+                    : unfixedAmount.map((val, index) => (
                         <input
                           className={val === price && 'active'}
                           type="button"
+                          key={index}
                           value={`$${val}`}
                           readOnly
                           onClick={() => setPrice(val)}
@@ -189,8 +191,8 @@ const ProductScreen = (props) => {
             className="related-products"
           >
             <h5>Related Products</h5>
-            {products.slice(50, 54).map((product) => (
-              <Grid md={3}>
+            {products.slice(50, 54).map((product, index) => (
+              <Grid md={3} key={index}>
                 <ProductCard product={product} />
               </Grid>
             ))}

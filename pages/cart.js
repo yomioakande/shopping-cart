@@ -58,8 +58,8 @@ const CartPage = (props) => {
                 <div className="delete-cart" onClick={() => emptyCartHandler()}>
                   <DeleteIcon /> Empty Cart
                 </div>
-                {cartItems.map((item) => (
-                  <CartCard products={products} item={item} />
+                {cartItems.map((item, index) => (
+                  <CartCard products={products} item={item} key={index} />
                 ))}
               </Grid>
               <Grid md={4} xs={12}>
@@ -81,8 +81,8 @@ const CartPage = (props) => {
           className="hand-picked"
         >
           <h5 className="title">Hand picked just for you</h5>
-          {products.slice(14, 20).map((product) => (
-            <Grid md={2} xs={12}>
+          {products.slice(14, 20).map((product, index) => (
+            <Grid md={2} xs={12} key={index}>
               <ProductCard product={product} />
             </Grid>
           ))}
