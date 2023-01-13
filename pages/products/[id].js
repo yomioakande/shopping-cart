@@ -11,7 +11,12 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ProductCard from '../../components/ProductCard';
 import { useState, useEffect, useContext } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import { formatPrice, randomRating, randomReviews } from '../../utils';
+import {
+  fetchProducts,
+  formatPrice,
+  randomRating,
+  randomReviews
+} from '../../utils';
 import { Store } from '../../utils/Store';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -67,7 +72,7 @@ const ProductScreen = (props) => {
     setOpen(false);
   };
   const handleRedirect = () => {
-    router.push('/cart');
+    router.push('/');
   };
 
   const addToCartHandler = () => {
@@ -247,24 +252,7 @@ const ProductScreen = (props) => {
 };
 
 export async function getServerSideProps() {
-  try {
-    const { data } = await fetch(
-      'https://api.chimoney.io/v0.2/info/assets'
-    ).then((res) => res.json());
-    return {
-      props: {
-        products: JSON.parse(JSON.stringify(data.giftCardsRLD.content))
-      }
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      props: {
-        products: [],
-        error
-      }
-    };
-  }
+  return fetchProducts();
 }
 
 export default dynamic(() => Promise.resolve(ProductScreen), { ssr: false });

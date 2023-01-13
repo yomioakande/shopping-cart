@@ -1,3 +1,23 @@
+const fetchProducts = async () => {
+  try {
+    const { data } = await fetch(process.env.NEXT_PUBLIC_API_URL).then((res) =>
+      res.json()
+    );
+    return {
+      props: {
+        products: JSON.parse(JSON.stringify(data.giftCardsRLD.content))
+      }
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      props: {
+        products: [],
+        error
+      }
+    };
+  }
+};
 const USDollar = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD'
@@ -59,6 +79,7 @@ const randomReviews = () => {
 };
 
 export {
+  fetchProducts,
   currencyFormatter,
   sortOptions,
   formatPrice,

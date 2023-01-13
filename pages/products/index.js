@@ -10,7 +10,7 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import { Listbox } from '@headlessui/react';
 import { useState } from 'react';
-import { sortOptions } from '../../utils';
+import { fetchProducts, sortOptions } from '../../utils';
 
 const Products = (props) => {
   const { products } = props;
@@ -119,24 +119,7 @@ const Products = (props) => {
 };
 
 export async function getServerSideProps() {
-  try {
-    const { data } = await fetch(
-      'https://api.chimoney.io/v0.2/info/assets'
-    ).then((res) => res.json());
-    return {
-      props: {
-        products: JSON.parse(JSON.stringify(data.giftCardsRLD.content))
-      }
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      props: {
-        products: [],
-        error
-      }
-    };
-  }
+  return fetchProducts();
 }
 
 export default dynamic(() => Promise.resolve(Products), { ssr: false });

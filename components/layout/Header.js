@@ -61,7 +61,7 @@ const Header = () => {
               <HelpOutlineIcon /> Help
             </span>
           </Link>
-          <Link href="/cart" className="nav-cart">
+          <Link href="/" className="nav-cart">
             <span>
               <ShoppingCartOutlinedIcon /> <p>Cart</p>
               {cart.cartItems.length > 0 && (
