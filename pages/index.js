@@ -54,8 +54,8 @@ const CartPage = (props) => {
           <EmptyCart />
         ) : (
           <div className="cart-page">
-            <Grid container md={8} mdOffset={2} spacing={3}>
-              <Grid md={8}>
+            <Grid container md={10} mdOffset={1} spacing={3}>
+              <Grid xs={12} md={8}>
                 <div className="delete-cart" onClick={() => emptyCartHandler()}>
                   <DeleteIcon /> Empty Cart
                 </div>

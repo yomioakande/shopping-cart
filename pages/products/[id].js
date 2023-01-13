@@ -166,7 +166,10 @@ const ProductScreen = (props) => {
                     <RemoveIcon />
                   </div>
                   <input type="text" value={qty} readOnly />
-                  <div className="p-qty-btn" onClick={() => setQty(qty + 1)}>
+                  <div
+                    className="p-qty-btn increment"
+                    onClick={() => setQty(qty + 1)}
+                  >
                     <AddIcon />
                   </div>
                 </div>
